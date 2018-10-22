@@ -24,9 +24,7 @@ public class SendTweetDelegate implements JavaDelegate { // meine Klasse SendTwe
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         String tweetContent = (String) execution.getVariable("tweetContent");
-        System.out.println("!!!! Folgender Tweet wird veröffentlicht:" + tweetContent);
-        
-        
+        System.out.println("!!!!!!!!Folgender Tweet wird veröffentlicht" + tweetContent);
     }
     
 }
