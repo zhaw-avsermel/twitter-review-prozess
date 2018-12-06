@@ -1,8 +1,10 @@
 package ch.zhaw.gpi.twitterreview.delegates;
 
+import ch.zhaw.gpi.twitterreview.services.EmailService;
 import javax.inject.Named;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Implementation des Send Tasks "Mitarbeiter benachrichtigen"
@@ -12,12 +14,16 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 @Named("notifyEmployeeAdapter")
 public class NotifyEmployeeDelegate implements JavaDelegate {
 
+    // Aus aufgabe 8.3.5: Verdrahten des Mailservers
+    @Autowired
+    private EmailService emailService;
+    
     /**
-     * Mocked das Senden einer Benachrichtigung per Mail
+     * Sendet eine Benachrichtigung per Mail
      * 
      * 1. Die Prozessvariable auslesen
      * 2. Die E-Mail-NAchricht zusammenstellen
-     * 3. E-Mail in der Konsole ausgeben
+     * (3. E-Mail in der Konsole ausgeben) --> wird in der Aufgabe 8.3.5 verändert: // 3. Mail über Mailservice versenden  
      * 
      * @param de            Objekt welches die Verknüpfung zur Process Engine und
      * aktuellen Execution enthält
@@ -48,11 +54,17 @@ public class NotifyEmployeeDelegate implements JavaDelegate {
                 "Veröffentlichen als Tweet vorgeschlagen:\n" + tweetContent + "\n\n" +
                 mailHauptteil + "\n\n" + "Deine Kommunikationsabteilung";
         
-        // Mail in Konsole ausgeben
+        /*
+        --> Braucht es nicht mehr ---> wird mit Code aus der Aufgabe 8.3.5 ersetzt
+        Mail in Konsole ausgeben
         System.out.println("########### BEGIN MAIL ##########################");
         System.out.println("############################### Mail-Empfänger: " + email);
         System.out.println(mailBody);
         System.out.println("########### END MAIL ############################");
+**/
+        // Durch verdrahten mit @autowired kann ich den emailServer hier nutzen
+            // body: "Neuigkeiten zu Ihrer Tweet-Anfrage"
+        emailService.sendSimpleMail(email, "Neuigkeiten zu Ihrer Tweet-Anfrage", mailBody);
     }
     
 }
