@@ -49,7 +49,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         
-        <!-- Es sind keine Tests erforderlich -->
+        <!-- Es sind Tests erforderlich -->
         <skipTests>true</skipTests>
     </properties>
     
@@ -113,42 +113,42 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         
-        <!-- Importiert Komponenent fürs Testing. Die dritte Dependency ist notwendig, weil die standardmässig geladene 3.9.1-Version einen Bug verursacht. Details siehe 
- https://github.com/camunda/camunda-bpm-assert/issues/90 --> 
-        <dependency> 
-            <groupId>org.springframework.boot</groupId> 
-            <artifactId>spring-boot-starter-test</artifactId> 
-            <scope>test</scope> 
-        </dependency> 
-        <dependency> 
-            <groupId>org.camunda.bpm.extension</groupId> 
-            <artifactId>camunda-bpm-assert</artifactId> 
-            <version>2.0-SNAPSHOT</version> 
-            <scope>test</scope> 
-        </dependency> 
-        <dependency> 
-            <groupId>org.assertj</groupId> 
-            <artifactId>assertj-core</artifactId> 
-            <version>1.7.1</version> 
-            <scope>test</scope> 
+        <!-- Importiert Komponenent fürs Testing. Die dritte Dependency ist notwendig, 
+        weil die standardmässig geladene 3.9.1-Version einen Bug verursacht. Details siehe
+        https://github.com/camunda/camunda-bpm-assert/issues/90 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
-        <!-- Import die Spring Social Twitter-Komponenten --> 
-        <dependency> 
-            <groupId>org.springframework.social</groupId> 
-            <artifactId>spring-social-twitter</artifactId> 
-            <version>1.1.2.RELEASE</version> 
+        <dependency>
+            <groupId>org.camunda.bpm.extension</groupId>
+            <artifactId>camunda-bpm-assert</artifactId>
+            <version>2.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>1.7.1</version>
+            <scope>test</scope>
         </dependency>
         
-        <!-- Überschreibt die Version von Spring-Web, welche bereits im Spring Boot Starter 
-                     enthalten ist. Grund ist ein im aktuellen Release nicht gelöster Bug, 
-                     beschrieben z.B. in https://stackoverflow.com/questions/50853639/twitter-template-fails-during-sending-direct-message-but-get-
-        rate-limit-request --> 
-        <dependency> 
-            <groupId>org.springframework</groupId> 
-            <artifactId>spring-web</artifactId> 
-            <version>5.0.4.RELEASE</version> 
+        <!-- Import die Spring Social Twitter-Komponenten -->
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-twitter</artifactId>
+            <version>1.1.2.RELEASE</version>
         </dependency>
         
+        <!-- Überschreibt die Version von Spring-Web, welche bereits im Spring Boot Starter
+             enthalten ist. Grund ist ein im aktuellen Release nicht gelöster Bug,
+             beschrieben z.B. in https://stackoverflow.com/questions/50853639/twitter-template-fails-during-sending-direct-message-but-get-rate-limit-request -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.0.4.RELEASE</version>
+        </dependency>
     </dependencies>
     
     <build>

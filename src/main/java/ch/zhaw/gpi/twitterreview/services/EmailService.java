@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ch.zhaw.gpi.twitterreview.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +20,18 @@ import org.springframework.stereotype.Service;
  * gekennzeichnet ist
  *
  * @author scep
- *
- * avsermel: In dieseer Klasse wird nun der Java-Mail server genutzt. Ich greife
- * auf ein Objekt, welces von spring beim Start automatisch generriert
  */
 @Service
 public class EmailService {
 
-    // Um JavaMailsenden objekt nutzen zu können  mit Autowired verdrahten
+    // Verdrahten von JavaMailSender
     @Autowired
     private JavaMailSender javaMailSender;
 
-    // Sender-Adresse aus application.properties auslesen
+    // Sender-Adresse aus entsprechender Property-Eigenschaft lesen
     @Value("${mail.senderaddress}")
     private String senderAddress;
 
-    // Methode um Mail zu versenden
-    
     /**
      * Sendet eine einfache Text-Mail
      *
@@ -41,38 +41,29 @@ public class EmailService {
      * @throws java.lang.Exception
      */
     public void sendSimpleMail(String to, String subject, String body) throws Exception {
-        // Instanziert eine neue SimpleMail-Nachricht 
-            // SimpleMailMessage ist ein spring framework--> wird anfangs leer gebildet
+        // Instanziert eine neue SimpleMail-Nachricht
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 
         // Legt Empfänger, Betreff und Mail-Text fest
-            // Objekte welche oben in der Methode mitgegeben werden, werden hier abgefüllt
         simpleMailMessage.setTo(to);
         simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(body);
         simpleMailMessage.setFrom(senderAddress);
         simpleMailMessage.setReplyTo(senderAddress);
 
-        // Versucht, die Mail abzusenden  (wie bei tweet posten)
+        // Versucht, die Mail abzusenden
         try {
             // Mail versenden
-                // Das was oben mit simpleMailMessage.setTo(to); etc. vorbereitet wurde, wird hier gesendet
             javaMailSender.send(simpleMailMessage);
 
-            // WENN VERSAND ERFOLGREICH DANN:
-            // In der Konsole mitteilen, dass die Mail versandt wurde für einfacheres Debugging 
+            // In der Konsole mitteilen, dass die Mail versandt wurde für einfacheres Debugging
             System.out.println("Mail erfolgreich versandt");
-            
-            // Mailexception (spring komponent) wird ausgelöst
         } catch (MailException me) {
-             // WENN VERSAND NICHT ERFOLGREICH DANN:
-           
-            // Fehlermeldung ausgeben in Konsole 
+            // Fehlermeldung ausgeben in Konsole
             System.err.println(me.getLocalizedMessage());
 
-            // Fehler weitergeben an aufrufende Methode 
+            // Fehler weitergeben an aufrufende Methode
             throw new Exception("Mail senden fehlgeschlagen", me);
         }
     }
-
 }
